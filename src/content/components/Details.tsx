@@ -1,24 +1,24 @@
-import { useState } from 'react'
-import { cn } from '@/lib/utils'
-import { Button } from '@/components/ui/button'
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 export type MediaItem =
   | { type: 'image'; url: string; alt?: string }
-  | { type: 'video'; url: string; title?: string }
+  | { type: 'video'; url: string; title?: string };
 
 export interface TimestampItem {
-  time: string
-  label: string
+  time: string;
+  label: string;
 }
 
 export interface DetailsProps {
-  title?: string
-  description: string
-  media?: MediaItem[]
-  timestamps?: TimestampItem[]
-  tags?: string[]
-  onTimestampClick?: (timestamp: TimestampItem) => void
-  onTagClick?: (tag: string) => void
+  title?: string;
+  description: string;
+  media?: MediaItem[];
+  timestamps?: TimestampItem[];
+  tags?: string[];
+  onTimestampClick?: (timestamp: TimestampItem) => void;
+  onTagClick?: (tag: string) => void;
 }
 
 function GrainOverlay() {
@@ -32,12 +32,18 @@ function GrainOverlay() {
         backgroundSize: '170px',
       }}
     />
-  )
+  );
 }
 
 function ChevronLeft() {
   return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      aria-hidden="true"
+    >
       <path
         d="M10 3L5 8L10 13"
         stroke="currentColor"
@@ -46,12 +52,18 @@ function ChevronLeft() {
         strokeLinejoin="round"
       />
     </svg>
-  )
+  );
 }
 
 function ChevronRight() {
   return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      aria-hidden="true"
+    >
       <path
         d="M6 3L11 8L6 13"
         stroke="currentColor"
@@ -60,7 +72,7 @@ function ChevronRight() {
         strokeLinejoin="round"
       />
     </svg>
-  )
+  );
 }
 
 export default function Details({
@@ -72,21 +84,21 @@ export default function Details({
   onTimestampClick,
   onTagClick,
 }: DetailsProps) {
-  const [currentIndex, setCurrentIndex] = useState(0)
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-  const hasMedia = media.length > 0
-  const hasMultiple = media.length > 1
-  const currentItem = hasMedia ? media[currentIndex] : null
-  const paragraphs = description.split('\n\n').filter(Boolean)
+  const hasMedia = media.length > 0;
+  const hasMultiple = media.length > 1;
+  const currentItem = hasMedia ? media[currentIndex] : null;
+  const paragraphs = description.split('\n\n').filter(Boolean);
 
   function handlePrev(e: React.MouseEvent) {
-    e.stopPropagation()
-    setCurrentIndex(i => (i - 1 + media.length) % media.length)
+    e.stopPropagation();
+    setCurrentIndex((i) => (i - 1 + media.length) % media.length);
   }
 
   function handleNext(e: React.MouseEvent) {
-    e.stopPropagation()
-    setCurrentIndex(i => (i + 1) % media.length)
+    e.stopPropagation();
+    setCurrentIndex((i) => (i + 1) % media.length);
   }
 
   return (
@@ -162,7 +174,10 @@ export default function Details({
                   'opacity-0 group-hover:opacity-100',
                   'transition-all duration-150',
                 )}
-                style={{ background: 'rgba(0,0,0,0.52)', backdropFilter: 'blur(4px)' }}
+                style={{
+                  background: 'rgba(0,0,0,0.52)',
+                  backdropFilter: 'blur(4px)',
+                }}
               >
                 <ChevronLeft />
               </Button>
@@ -178,7 +193,10 @@ export default function Details({
                   'opacity-0 group-hover:opacity-100',
                   'transition-all duration-150',
                 )}
-                style={{ background: 'rgba(0,0,0,0.52)', backdropFilter: 'blur(4px)' }}
+                style={{
+                  background: 'rgba(0,0,0,0.52)',
+                  backdropFilter: 'blur(4px)',
+                }}
               >
                 <ChevronRight />
               </Button>
@@ -190,21 +208,30 @@ export default function Details({
             <>
               <div
                 className="absolute bottom-0 left-0 right-0 h-10 pointer-events-none z-[5]"
-                style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.55), transparent)' }}
+                style={{
+                  background:
+                    'linear-gradient(to top, rgba(0,0,0,0.55), transparent)',
+                }}
               />
               <div className="absolute bottom-2.5 left-1/2 -translate-x-1/2 z-10 flex gap-1.5 items-center">
                 {media.map((_, i) => (
                   <Button
                     key={i}
                     variant="ghost"
-                    onClick={(e) => { e.stopPropagation(); setCurrentIndex(i) }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setCurrentIndex(i);
+                    }}
                     aria-label={`Go to item ${i + 1}`}
                     className="p-0 rounded-full hover:bg-transparent transition-all duration-200"
                     style={{
                       width: i === currentIndex ? '20px' : '6px',
                       height: '6px',
                       minWidth: 0,
-                      background: i === currentIndex ? 'var(--color-brick-red-700)' : 'rgba(255,255,255,0.35)',
+                      background:
+                        i === currentIndex
+                          ? 'var(--color-brick-red-700)'
+                          : 'rgba(255,255,255,0.35)',
                     }}
                   />
                 ))}
@@ -215,19 +242,23 @@ export default function Details({
       )}
 
       {hasMedia && (
-        <div className="mx-0 flex-none h-px" style={{ background: '#1c1a14' }} />
+        <div
+          className="mx-0 flex-none h-px"
+          style={{ background: '#1c1a14' }}
+        />
       )}
 
       {/* Description */}
       <div
         className="flex-1 overflow-y-auto px-4 py-4 min-h-0"
-        style={{ scrollbarWidth: 'thin', scrollbarColor: '#2a2720 transparent' }}
+        style={{
+          scrollbarWidth: 'thin',
+          scrollbarColor: '#2a2720 transparent',
+        }}
       >
         {title && (
           <div className="flex items-center gap-2.5 mb-3.5">
-            <span
-              className="font-cinzel text-brick-red-500 text-[10.5px] font-normal whitespace-nowrap tracking-[0.22em] uppercase"
-            >
+            <span className="font-cinzel text-brick-red-500 text-[10.5px] font-normal whitespace-nowrap tracking-[0.22em] uppercase">
               {title}
             </span>
             <div className="flex-1 h-px bg-brick-red-700" />
@@ -246,7 +277,10 @@ export default function Details({
         </div>
 
         {timestamps.length > 0 && (
-          <div className="mt-4 pt-3.5" style={{ borderTop: '1px solid #1c1a14' }}>
+          <div
+            className="mt-4 pt-3.5"
+            style={{ borderTop: '1px solid #1c1a14' }}
+          >
             <div className="space-y-0.5">
               {timestamps.map((ts, i) => (
                 <Button
@@ -260,9 +294,7 @@ export default function Details({
                     'hover:bg-[rgba(214,16,69,0.07)] hover:text-inherit',
                   )}
                 >
-                  <span
-                    className="font-mono text-brick-red-600 text-[11px] tabular-nums flex-none tracking-[0.04em]"
-                  >
+                  <span className="font-mono text-brick-red-600 text-[11px] tabular-nums flex-none tracking-[0.04em]">
                     {ts.time}
                   </span>
                   <span className="text-[#8a8070] group-hover:text-[#bdb5a2] text-[12px] transition-colors duration-150 truncate font-normal">
@@ -275,7 +307,10 @@ export default function Details({
         )}
 
         {tags.length > 0 && (
-          <div className="mt-3.5 pt-3.5 flex flex-wrap gap-1.5" style={{ borderTop: '1px solid #1c1a14' }}>
+          <div
+            className="mt-3.5 pt-3.5 flex flex-wrap gap-1.5"
+            style={{ borderTop: '1px solid #1c1a14' }}
+          >
             {tags.map((tag, i) => (
               <Button
                 key={i}
@@ -297,5 +332,5 @@ export default function Details({
         )}
       </div>
     </div>
-  )
+  );
 }

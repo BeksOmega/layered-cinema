@@ -1,15 +1,15 @@
-import { useState } from 'react'
+import { useState } from 'react';
 
-import { Switch } from '@/components/ui/switch'
+import { Switch } from '@/components/ui/switch';
 
 export default function CinemaModeToggle() {
   const [cinemaOn, setCinemaOn] = useState(
     document.documentElement.dataset.layeredCinema === 'on',
-  )
+  );
 
   function handleToggle(checked: boolean) {
-    document.documentElement.dataset.layeredCinema = checked ? 'on' : 'off'
-    setCinemaOn(checked)
+    document.documentElement.dataset.layeredCinema = checked ? 'on' : 'off';
+    setCinemaOn(checked);
   }
 
   return (
@@ -26,5 +26,5 @@ export default function CinemaModeToggle() {
         onCheckedChange={handleToggle}
       />
     </div>
-  )
+  );
 }

@@ -4,6 +4,7 @@
   "version": "0.1.0",
   "description": "Injects content into YouTube",
   "permissions": ["tabs"],
+  "host_permissions": ["https://beksomega.github.io/*"],
   "background": {
     "service_worker": "src/background/index.ts",
     "type": "module"
