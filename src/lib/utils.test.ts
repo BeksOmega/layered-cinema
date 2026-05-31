@@ -1,16 +1,16 @@
-import { describe, it, expect } from 'vitest'
-import { cn } from './utils'
+import { describe, expect, it } from 'vitest';
+import { cn } from './utils';
 
 describe('cn', () => {
   it('merges class names', () => {
-    expect(cn('foo', 'bar')).toBe('foo bar')
-  })
+    expect(cn('foo', 'bar')).toBe('foo bar');
+  });
 
   it('resolves tailwind conflicts', () => {
-    expect(cn('p-2', 'p-4')).toBe('p-4')
-  })
+    expect(cn('p-2', 'p-4')).toBe('p-4');
+  });
 
   it('handles conditional classes', () => {
-    expect(cn('base', false && 'skipped', 'included')).toBe('base included')
-  })
-})
+    expect(cn('base', false && 'skipped', 'included')).toBe('base included');
+  });
+});
