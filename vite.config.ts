@@ -24,12 +24,14 @@ function tailwindContentHmr(): Plugin {
   }
 }
 
+const isStorybook = process.env.STORYBOOK === 'true'
+
 export default defineConfig({
   plugins: [
     tailwindContentHmr(),
     tailwindcss(),
     react(),
-    crx({ manifest }),
+    ...(isStorybook ? [] : [crx({ manifest })]),
   ],
   server: {
     headers: {

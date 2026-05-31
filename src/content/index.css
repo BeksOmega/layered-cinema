@@ -1,1 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Instrument+Sans:wght@400;500&display=swap');
 @import "tailwindcss";
+
+@theme {
+  --color-brick-red-50: #fff1f2;
+  --color-brick-red-100: #ffe3e6;
+  --color-brick-red-200: #ffccd3;
+  --color-brick-red-300: #ffa2b0;
+  --color-brick-red-400: #fe6e86;
+  --color-brick-red-500: #f83b60;
+  --color-brick-red-600: #e5194b;
+  --color-brick-red-700: #d61045;
+  --color-brick-red-800: #a20f3b;
+  --color-brick-red-900: #8a1139;
+  --color-brick-red-950: #4d041a;
+}
