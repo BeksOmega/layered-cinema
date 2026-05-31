@@ -3,57 +3,10 @@
   display: none !important;
 }
 
-/* Hide all content below/beside the player (metadata, sidebar, comments) */
-#columns,
-#single-column-container {
-  display: none !important;
-}
-
-/* Remove any top offset introduced by the nav bar */
-ytd-app,
-#content,
-#page-manager,
-ytd-watch-flexy {
-  margin-top: 0 !important;
-  padding-top: 0 !important;
-}
-
-/* Expand the full-bleed player container to fill the viewport */
-#full-bleed-container {
-  height: 100vh !important;
-  max-height: 100vh !important;
-}
-
-/* Propagate height through the container chain */
-#player-full-bleed-container,
-#player-container,
-ytd-player,
-#ytd-player,
-#container {
-  width: 100% !important;
-  height: 100% !important;
-}
-
-/* Make the actual player fill its container */
-#movie_player,
-.html5-video-player {
-  width: 100% !important;
-  height: 100% !important;
-  position: absolute !important;
-  top: 0 !important;
-  left: 0 !important;
-}
-
-/* Video element fills the player */
-#movie_player video,
-.html5-video-player video {
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: contain !important;
-}
-
-/* No scrollbar, no body margin */
-body {
-  overflow: hidden !important;
-  margin: 0 !important;
+/* Hide sidebar visually but keep its space so the player stays left-aligned */
+#secondary,
+#below,
+#chat-container,
+ytd-watch-metadata {
+  visibility: hidden !important;
 }
