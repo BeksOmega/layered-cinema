@@ -1,0 +1,13 @@
+{
+  "manifest_version": 3,
+  "name": "Layered Cinema",
+  "version": "0.1.0",
+  "description": "Injects content into YouTube",
+  "content_scripts": [
+    {
+      "matches": ["*://www.youtube.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_end"
+    }
+  ]
+}
