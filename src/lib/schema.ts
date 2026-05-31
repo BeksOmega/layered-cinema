@@ -45,7 +45,6 @@ export const ArtifactSchema = z.object({
 })
 
 export const FilmSchema = z.object({
-  id: kebab,
   title: z.string().min(1),
   youtubeLink: z.string().url().refine(
     url => /youtube\.com\/watch|youtu\.be\//.test(url),
