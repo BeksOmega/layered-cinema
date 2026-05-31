@@ -1,0 +1,12 @@
+/* Hide top navigation bar */
+#masthead-container {
+  display: none !important;
+}
+
+/* Hide sidebar visually but keep its space so the player stays left-aligned */
+#secondary,
+#below,
+#chat-container,
+ytd-watch-metadata {
+  visibility: hidden !important;
+}
