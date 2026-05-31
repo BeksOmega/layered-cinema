@@ -1,12 +1,17 @@
 /* Hide top navigation bar */
-#masthead-container {
+[data-layered-cinema="on"] #masthead-container {
   display: none !important;
 }
 
-/* Hide sidebar visually but keep its space so the player stays left-aligned */
-#secondary,
-#below,
-#chat-container,
-ytd-watch-metadata {
+/* Hide sidebar content but not our injected toggle */
+[data-layered-cinema="on"] #secondary #chips,
+[data-layered-cinema="on"] #secondary #contents {
+  visibility: hidden !important;
+}
+
+/* Hide below-video content (metadata, comments) */
+[data-layered-cinema="on"] #below,
+[data-layered-cinema="on"] #chat-container,
+[data-layered-cinema="on"] ytd-watch-metadata {
   visibility: hidden !important;
 }

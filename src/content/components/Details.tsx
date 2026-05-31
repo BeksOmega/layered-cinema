@@ -226,8 +226,7 @@ export default function Details({
         {title && (
           <div className="flex items-center gap-2.5 mb-3.5">
             <span
-              className="text-brick-red-500 text-[10.5px] font-normal whitespace-nowrap tracking-[0.22em] uppercase"
-              style={{ fontFamily: "'Cinzel', Georgia, serif", fontWeight: 400 }}
+              className="font-cinzel text-brick-red-500 text-[10.5px] font-normal whitespace-nowrap tracking-[0.22em] uppercase"
             >
               {title}
             </span>
@@ -239,8 +238,7 @@ export default function Details({
           {paragraphs.map((para, i) => (
             <p
               key={i}
-              className="text-[#bdb5a2] text-[13px] leading-[1.78] font-normal"
-              style={{ fontFamily: "'Instrument Sans', system-ui, sans-serif" }}
+              className="font-instrument-sans text-[#bdb5a2] text-[13px] leading-[1.78] font-normal"
             >
               {para}
             </p>
@@ -256,15 +254,14 @@ export default function Details({
                   variant="ghost"
                   onClick={() => onTimestampClick?.(ts)}
                   className={cn(
+                    'font-instrument-sans',
                     'w-full justify-start gap-3 px-2 py-1 h-auto rounded-[2px]',
                     'text-left group',
                     'hover:bg-[rgba(214,16,69,0.07)] hover:text-inherit',
                   )}
-                  style={{ fontFamily: "'Instrument Sans', system-ui, sans-serif" }}
                 >
                   <span
-                    className="text-brick-red-600 text-[11px] tabular-nums flex-none"
-                    style={{ fontFamily: 'ui-monospace, monospace', letterSpacing: '0.04em' }}
+                    className="font-mono text-brick-red-600 text-[11px] tabular-nums flex-none tracking-[0.04em]"
                   >
                     {ts.time}
                   </span>
@@ -285,13 +282,13 @@ export default function Details({
                 variant="outline"
                 onClick={() => onTagClick?.(tag)}
                 className={cn(
+                  'font-instrument-sans',
                   'h-auto px-2.5 py-0.5 rounded-[2px]',
                   'text-[10.5px] uppercase tracking-[0.07em] font-normal',
                   'text-[#6b6254] border-[#2a2418] bg-transparent',
                   'hover:text-brick-red-500 hover:border-brick-red-900 hover:bg-[rgba(214,16,69,0.06)]',
                   'transition-all duration-150',
                 )}
-                style={{ fontFamily: "'Instrument Sans', system-ui, sans-serif" }}
               >
                 {tag}
               </Button>
