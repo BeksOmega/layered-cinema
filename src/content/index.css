@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Instrument+Sans:wght@400;500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Instrument+Sans:wght@400;500&display=swap");
 @import "tailwindcss";
 
 @theme {
-  --font-cinzel: 'Cinzel', serif;
-  --font-instrument-sans: 'Instrument Sans', sans-serif;
+  --font-cinzel: "Cinzel", serif;
+  --font-instrument-sans: "Instrument Sans", sans-serif;
 
   --color-brick-red-50: #fff1f2;
   --color-brick-red-100: #ffe3e6;

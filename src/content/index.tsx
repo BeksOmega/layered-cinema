@@ -43,7 +43,7 @@ function injectSidebarToggle() {
   const sidebarMount = document.createElement('div');
   sidebarShadow.appendChild(sidebarMount);
   secondary.insertBefore(sidebarContainer, secondary.firstChild);
-  createRoot(sidebarMount).render(<CinemaModeToggle />);
+  createRoot(sidebarMount).render(<CinemaModeToggle videoId={activeVideoId as string} />);
 }
 
 function teardown() {
@@ -66,7 +66,8 @@ async function updateForCurrentVideo() {
   if (!hasData) return;
 
   activeVideoId = videoId;
-  document.documentElement.dataset.layeredCinema = 'on';
+  const savedState = localStorage.getItem(`layered-cinema:${videoId}`);
+  document.documentElement.dataset.layeredCinema = savedState === 'on' ? 'on' : 'off';
 
   const cinemaStyle = document.createElement('style');
   cinemaStyle.id = CINEMA_STYLE_ID;
