@@ -1,0 +1,44 @@
+{
+  id: "my-film",
+  title: "My Film",
+  youtubeLink: "https://youtu.be/dQw4w9WgXcQ",
+
+  artifacts: [
+    {
+      id: "rainbow-motif",
+      title: "Rainbow Color Palette",
+      description: "A recurring rainbow motif used to signal emotional openness in the protagonist.",
+
+      // Tags are free-form kebab-case strings — add whatever makes sense.
+      tags: ["visual-motif", "rainbow", "color", "protagonist"],
+
+      // Where in the main film this artifact is relevant.
+      // time and endTime are in seconds. endTime is optional.
+      timestamps: [
+        { time: 142, endTime: 158, label: "First appearance — opening scene" },
+        { time: 3847,              label: "Climactic sequence" },
+        { time: 5021, endTime: 5060, label: "Callback in finale" },
+      ],
+
+      // Copy the share link from YouTube's Share button — timestamp included.
+      // Use the youtu.be short form with ?t= for the start time.
+      // duration is in seconds and tells the player when to stop.
+      videos: [
+        {
+          youtubeLink: "https://youtu.be/sIFGC8L_MX0?si=JKGFgg5rxlUpyGtj&t=954",
+          duration: 115,
+          type: "interview", // interview | bts | featurette | press
+        },
+      ],
+
+      // External articles, reviews, social posts, etc.
+      links: [
+        {
+          url: "https://variety.com/example",
+          title: "Variety: The Visual Language of the Film",
+          type: "press", // press | article | social | other
+        },
+      ],
+    },
+  ],
+}
