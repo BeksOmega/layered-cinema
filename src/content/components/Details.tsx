@@ -23,6 +23,8 @@ export interface DetailsProps {
   editable?: boolean;
   artifact?: Partial<Artifact>;
   onArtifactChange?: (artifact: Partial<Artifact>) => void;
+  /** Render inline in normal document flow instead of as a fixed overlay. */
+  inline?: boolean;
 }
 
 function GrainOverlay() {
@@ -213,6 +215,7 @@ export default function Details({
   editable = false,
   artifact,
   onArtifactChange,
+  inline = false,
 }: DetailsProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -342,9 +345,10 @@ export default function Details({
   return (
     <div
       className={cn(
-        'fixed bottom-6 right-6 z-[9999999]',
-        'w-[400px] max-h-[78vh]',
-        'flex flex-col overflow-hidden',
+        inline
+          ? 'w-full overflow-y-auto'
+          : 'fixed bottom-6 right-6 z-[9999999] w-[400px] max-h-[78vh] overflow-hidden',
+        'flex flex-col',
         'rounded-[2px]',
       )}
       style={{

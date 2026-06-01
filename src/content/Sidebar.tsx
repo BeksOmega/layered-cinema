@@ -78,6 +78,7 @@ export default function Sidebar({ videoId }: Props) {
       <CinemaModeToggle videoId={videoId} />
       {cinemaOn && artifact && (
         <Details
+          inline
           title={artifact.title}
           description={artifact.description ?? ''}
           timestamps={artifact.timestamps.map((ts) => ({ time: formatTime(ts.time) }))}
