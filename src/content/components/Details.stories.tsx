@@ -24,6 +24,9 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+// Big Buck Bunny — freely licensed, stable video for YouTube embed stories
+const BBB_ID = 'aqz-KE-bpKQ';
+
 const DESCRIPTION =
   "Carol Reed's masterwork unfolds in the shadowy ruins of post-war Vienna. The expressionistic cinematography of Robert Krasker, with its deliberately canted angles and stark chiaroscuro contrasts, earned him the Academy Award for Best Cinematography.";
 
@@ -75,13 +78,17 @@ export const WithVideos: Story = {
     description: DESCRIPTION,
     media: [
       {
-        type: 'video',
-        url: 'https://www.w3schools.com/html/mov_bbb.mp4',
+        type: 'youtube',
+        videoId: BBB_ID,
+        start: 30,
+        end: 90,
         title: 'Original Trailer',
       },
       {
-        type: 'video',
-        url: 'https://www.w3schools.com/html/movie.mp4',
+        type: 'youtube',
+        videoId: BBB_ID,
+        start: 120,
+        end: 180,
         title: 'Director Interview',
       },
     ],
@@ -99,8 +106,10 @@ export const MixedMedia: Story = {
         alt: 'Vienna 1949',
       },
       {
-        type: 'video',
-        url: 'https://www.w3schools.com/html/mov_bbb.mp4',
+        type: 'youtube',
+        videoId: BBB_ID,
+        start: 30,
+        end: 90,
         title: 'Theatrical Trailer',
       },
       {
@@ -109,8 +118,10 @@ export const MixedMedia: Story = {
         alt: 'Film noir lighting',
       },
       {
-        type: 'video',
-        url: 'https://www.w3schools.com/html/movie.mp4',
+        type: 'youtube',
+        videoId: BBB_ID,
+        start: 200,
+        end: 260,
         title: 'Score Recording',
       },
       {
@@ -208,5 +219,96 @@ export const TagsOnly: Story = {
       'british cinema',
       'expressionism',
     ],
+  },
+};
+
+export const WithYouTubeClip: Story = {
+  args: {
+    title: 'Scene Excerpt',
+    description: DESCRIPTION,
+    media: [
+      {
+        type: 'youtube',
+        videoId: BBB_ID,
+        start: 90,
+        end: 150,
+        title: 'The chase sequence (1:30 – 2:30)',
+      },
+    ],
+    timestamps: [
+      { time: '1:30' },
+      { time: '2:00' },
+    ],
+    tags: ['excerpt', 'action'],
+  },
+};
+
+export const MixedWithYouTube: Story = {
+  args: {
+    title: 'Production Archive',
+    description: DESCRIPTION,
+    media: [
+      {
+        type: 'image',
+        url: 'https://picsum.photos/seed/cinema1/640/360',
+        alt: 'Vienna 1949',
+      },
+      {
+        type: 'youtube',
+        videoId: BBB_ID,
+        start: 60,
+        end: 120,
+        title: 'Opening sequence (1:00 – 2:00)',
+      },
+      {
+        type: 'image',
+        url: 'https://picsum.photos/seed/cinema3/640/360',
+        alt: 'Film noir lighting',
+      },
+      {
+        type: 'youtube',
+        videoId: BBB_ID,
+        start: 200,
+        end: 240,
+        title: 'Forest scene (3:20 – 4:00)',
+      },
+    ],
+    tags: ['film noir', 'archive'],
+  },
+};
+
+export const MultipleYouTubeClips: Story = {
+  args: {
+    title: 'Key Scenes',
+    description: DESCRIPTION,
+    media: [
+      {
+        type: 'youtube',
+        videoId: BBB_ID,
+        start: 30,
+        end: 60,
+        title: 'Introduction (0:30 – 1:00)',
+      },
+      {
+        type: 'youtube',
+        videoId: BBB_ID,
+        start: 90,
+        end: 150,
+        title: 'The chase (1:30 – 2:30)',
+      },
+      {
+        type: 'youtube',
+        videoId: BBB_ID,
+        start: 300,
+        end: 360,
+        title: 'Climax (5:00 – 6:00)',
+      },
+    ],
+    timestamps: [
+      { time: '0:30' },
+      { time: '1:30' },
+      { time: '5:00' },
+    ],
+    tags: ['scenes', 'highlights'],
   },
 };
