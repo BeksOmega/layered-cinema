@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 import { Switch } from '@/components/ui/switch';
 
@@ -12,12 +12,18 @@ export default function CinemaModeToggle({ videoId }: Props) {
   const [cinemaOn, setCinemaOn] = useState(
     localStorage.getItem(STORAGE_KEY_PREFIX + videoId) === 'on',
   );
+  const hadDarkBeforeCinema = useRef(false);
 
   function handleToggle(checked: boolean) {
     if (checked) {
       localStorage.setItem(STORAGE_KEY_PREFIX + videoId, 'on');
+      hadDarkBeforeCinema.current = document.documentElement.hasAttribute('dark');
+      document.documentElement.setAttribute('dark', '');
     } else {
       localStorage.removeItem(STORAGE_KEY_PREFIX + videoId);
+      if (!hadDarkBeforeCinema.current) {
+        document.documentElement.removeAttribute('dark');
+      }
     }
     document.documentElement.dataset.layeredCinema = checked ? 'on' : 'off';
     setCinemaOn(checked);
