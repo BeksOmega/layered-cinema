@@ -31,6 +31,7 @@ export default function App() {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [selectedArtifact, setSelectedArtifact] = useState<Artifact | null>(null);
+  const [videoRect, setVideoRect] = useState<DOMRect | null>(null);
 
   useEffect(() => {
     const obs = new MutationObserver(() => {
@@ -75,6 +76,22 @@ export default function App() {
     return () => clearInterval(id);
   }, [cinemaOn]);
 
+  useEffect(() => {
+    if (!cinemaOn) return;
+    const player =
+      document.querySelector<Element>('#movie_player') ?? document.querySelector('video');
+    if (!player) return;
+    const update = () => setVideoRect(player.getBoundingClientRect());
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(player);
+    window.addEventListener('resize', update);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener('resize', update);
+    };
+  }, [cinemaOn]);
+
   const handleSeek = useCallback((time: number) => {
     const video = document.querySelector('video');
     if (video) video.currentTime = time;
@@ -99,10 +116,12 @@ export default function App() {
   return (
     <>
       <div
-        className="fixed bottom-0 left-0 right-0 z-[9999999] px-6 pb-4 pt-8"
-        style={{
-          background: 'linear-gradient(to top, rgba(0,0,0,0.72) 0%, transparent 100%)',
-        }}
+        className="fixed z-[9999999] px-6 pt-3 pb-4"
+        style={
+          videoRect
+            ? { left: videoRect.left, top: videoRect.bottom, width: videoRect.width }
+            : { left: 0, right: 0, top: 0 }
+        }
       >
         <Timeline
           duration={duration}
