@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { AnimatePresence } from 'framer-motion';
 import type { Meta, StoryObj } from '@storybook/react';
 import Details from './Details';
 
@@ -266,22 +267,25 @@ function ClosableInteractiveDemo() {
 
   return (
     <div style={{ minHeight: '100vh', background: '#0f0f0f', position: 'relative' }}>
-      {visible ? (
-        <Details
-          title="The Third Man"
-          description={DESCRIPTION}
-          media={[
-            {
-              type: 'image',
-              url: 'https://picsum.photos/seed/cinema1/640/360',
-              alt: 'Vienna street scene',
-            },
-          ]}
-          timestamps={[{ time: '0:42' }, { time: '4:15' }]}
-          tags={['film noir', 'orson welles']}
-          onClose={() => setVisible(false)}
-        />
-      ) : (
+      <AnimatePresence>
+        {visible && (
+          <Details
+            title="The Third Man"
+            description={DESCRIPTION}
+            media={[
+              {
+                type: 'image',
+                url: 'https://picsum.photos/seed/cinema1/640/360',
+                alt: 'Vienna street scene',
+              },
+            ]}
+            timestamps={[{ time: '0:42' }, { time: '4:15' }]}
+            tags={['film noir', 'orson welles']}
+            onClose={() => setVisible(false)}
+          />
+        )}
+      </AnimatePresence>
+      {!visible && (
         <div
           style={{
             position: 'fixed',
