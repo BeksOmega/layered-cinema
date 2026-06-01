@@ -15,6 +15,7 @@ export default function App() {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [videoRect, setVideoRect] = useState<DOMRect | null>(null);
+  const [activeArtifactIndex, setActiveArtifactIndex] = useState<number | null>(null);
 
   useEffect(() => {
     const obs = new MutationObserver(() => {
@@ -92,6 +93,8 @@ export default function App() {
 
   function handleEventClick(_ev: TimelineEvent, index: number) {
     const artifactIndex = events[index].artifactIndex;
+    if (artifactIndex === activeArtifactIndex) return;
+    setActiveArtifactIndex(artifactIndex);
     document.dispatchEvent(
       new CustomEvent('layered-cinema:artifact-select', { detail: { artifactIndex } }),
     );
