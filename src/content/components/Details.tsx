@@ -127,7 +127,7 @@ export default function Details({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.2, ease: 'easeInOut' }}
+      transition={{ duration: 0.12, ease: 'easeInOut' }}
       className={cn(
         'fixed bottom-6 right-6 z-[9999999]',
         'w-[400px] max-h-[78vh]',
