@@ -8,6 +8,7 @@ export type MediaItem =
 
 export interface TimestampItem {
   time: string;
+  label?: string;
 }
 
 export interface DetailsProps {
@@ -276,7 +277,6 @@ export default function Details({
         </div>
 
         {timestamps.length > 0 && (
-<<<<<<< HEAD
           <div
             className="mt-4 pt-3.5"
             style={{ borderTop: '1px solid #1c1a14' }}
@@ -303,26 +303,6 @@ export default function Details({
                 </Button>
               ))}
             </div>
-=======
-          <div className="mt-3.5 pt-3.5 flex flex-wrap gap-1.5" style={{ borderTop: '1px solid #1c1a14' }}>
-            {timestamps.map((ts, i) => (
-              <Button
-                key={i}
-                variant="outline"
-                onClick={() => onTimestampClick?.(ts)}
-                className={cn(
-                  'h-auto px-2.5 py-0.5 rounded-[2px]',
-                  'text-[10.5px] font-normal tabular-nums',
-                  'text-brick-red-600 border-[#2a2418] bg-transparent',
-                  'hover:text-brick-red-400 hover:border-brick-red-900 hover:bg-[rgba(214,16,69,0.06)]',
-                  'transition-all duration-150',
-                )}
-                style={{ fontFamily: 'ui-monospace, monospace', letterSpacing: '0.04em' }}
-              >
-                {ts.time}
-              </Button>
-            ))}
->>>>>>> 94a4a9f (Refine Timeline and Details components)
           </div>
         )}
 
