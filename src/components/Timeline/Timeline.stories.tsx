@@ -2,6 +2,32 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { useEffect, useState } from 'react'
 import { Timeline, type TimelineEvent, type TimelineProps } from './Timeline'
 
+// ── Editable wrapper ──────────────────────────────────────────────────────────
+
+function EditableControlled(props: TimelineProps & { initialEvents?: TimelineEvent[] }) {
+  const [time, setTime] = useState(props.currentTime)
+  const [events, setEvents] = useState<TimelineEvent[]>(props.initialEvents ?? props.events ?? [])
+
+  useEffect(() => { setTime(props.currentTime) }, [props.currentTime])
+
+  return (
+    <div className="w-full max-w-2xl space-y-3 p-8">
+      <Timeline
+        {...props}
+        events={events}
+        currentTime={time}
+        onChange={setTime}
+        onEventsChange={setEvents}
+        onEventClick={(ev, i) => console.log('event clicked', i, ev)}
+        editable
+      />
+      <pre className="rounded bg-zinc-900 p-2 text-[10px] text-zinc-400">
+        {JSON.stringify(events, null, 2)}
+      </pre>
+    </div>
+  )
+}
+
 const meta = {
   title: 'Components/Timeline',
   component: Timeline,
@@ -74,5 +100,22 @@ export const NoEvents: Story = {
     duration: 90,
     currentTime: 15,
     events: [],
+  },
+}
+
+export const Editable: Story = {
+  render: (args) => (
+    <EditableControlled
+      {...args}
+      initialEvents={[
+        { start: 120,  end: 480,  label: 'Opening credits' },
+        { start: 600,  end: 1200, label: 'The Third Man theme' },
+        { start: 1400, end: 1900, label: 'Ferris wheel scene' },
+      ]}
+    />
+  ),
+  args: {
+    duration: 5580,
+    currentTime: 300,
   },
 }

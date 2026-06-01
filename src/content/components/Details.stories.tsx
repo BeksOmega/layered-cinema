@@ -1,5 +1,7 @@
+import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import Details from './Details';
+import type { Artifact } from '@/lib/schema';
 
 const meta = {
   title: 'Components/Details',
@@ -310,5 +312,70 @@ export const MultipleYouTubeClips: Story = {
       { time: '5:00' },
     ],
     tags: ['scenes', 'highlights'],
+  },
+};
+
+// Interactive edit-mode story with live artifact state log
+export const EditMode: Story = {
+  args: { description: '' },
+  render: () => {
+    const [artifact, setArtifact] = useState<Partial<Artifact>>({
+      title: 'The Third Man',
+      description: DESCRIPTION,
+      tags: ['film-noir', 'post-war', 'vienna'],
+      videos: [
+        {
+          youtubeLink: 'https://youtu.be/dQw4w9WgXcQ',
+          duration: 182,
+          type: 'interview',
+        },
+      ],
+      links: [
+        {
+          url: 'https://www.criterion.com/films/27560-the-third-man',
+          title: 'Criterion Collection',
+          type: 'article',
+        },
+      ],
+    });
+
+    return (
+      <div style={{ minHeight: '100vh', background: '#0f0f0f', position: 'relative' }}>
+        <Details
+          title={artifact.title}
+          description={artifact.description ?? ''}
+          tags={artifact.tags}
+          editable
+          artifact={artifact}
+          onArtifactChange={setArtifact}
+        />
+        {/* Live state panel */}
+        <div
+          style={{
+            position: 'fixed',
+            bottom: 6,
+            left: 6,
+            width: 320,
+            maxHeight: '78vh',
+            overflow: 'auto',
+            background: '#0d0b09',
+            border: '1px solid #222018',
+            borderRadius: 2,
+            padding: '12px 14px',
+            fontFamily: 'ui-monospace, monospace',
+            fontSize: 11,
+            color: '#6b6254',
+            lineHeight: 1.6,
+          }}
+        >
+          <div style={{ color: '#4a3a2a', marginBottom: 6, letterSpacing: '0.15em', textTransform: 'uppercase', fontSize: 9 }}>
+            Live artifact state
+          </div>
+          <pre style={{ margin: 0, whiteSpace: 'pre-wrap', wordBreak: 'break-all' }}>
+            {JSON.stringify(artifact, null, 2)}
+          </pre>
+        </div>
+      </div>
+    );
   },
 };
