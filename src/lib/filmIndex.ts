@@ -1,3 +1,4 @@
+import JSON5 from 'json5';
 import { FilmSchema, type Film } from './schema';
 
 const DATA_BASE_URL = 'https://beksomega.github.io/layered-cinema';
@@ -57,7 +58,7 @@ export async function getFilmData(videoId: string): Promise<Film | null> {
       console.error('[layered-cinema] getFilmData: fetch failed', res.status, res.statusText, url);
       return null;
     }
-    const json = await res.json();
+    const json = JSON5.parse(await res.text());
     const result = FilmSchema.safeParse(json);
     if (!result.success) {
       console.error('[layered-cinema] getFilmData: schema validation failed for', videoId, result.error.issues);
