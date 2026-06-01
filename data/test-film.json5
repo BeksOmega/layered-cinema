@@ -2,5 +2,53 @@
   title: "Test Film",
   youtubeLink: "https://www.youtube.com/watch?v=sIFGC8L_MX0",
 
-  artifacts: [],
+  artifacts: [
+    {
+      id: "color-red",
+      title: "Red as danger",
+      description: "Red appears consistently before or during moments of threat — costumes, lighting, props.",
+      tags: ["color", "motif", "danger"],
+      timestamps: [
+        { time: 320, endTime: 390, label: "Opening sequence" },
+        { time: 1840, endTime: 1900 },
+        { time: 3210, endTime: 3280, label: "Climax" },
+        { time: 4950 },
+      ],
+    },
+    {
+      id: "mirror-shots",
+      title: "Mirror compositions",
+      description: "Mirrors used to split the frame and suggest duality or self-deception.",
+      tags: ["composition", "duality"],
+      timestamps: [
+        { time: 610, endTime: 650 },
+        { time: 2540, endTime: 2600 },
+        { time: 4100, endTime: 4160 },
+      ],
+    },
+    {
+      id: "silence",
+      title: "Diegetic silence",
+      description: "Score drops out entirely to let ambient sound carry the scene.",
+      tags: ["sound", "score"],
+      timestamps: [
+        { time: 380, endTime: 430 },
+        { time: 1520 },
+        { time: 3600, endTime: 3680 },
+        { time: 5100, endTime: 5190 },
+      ],
+    },
+    {
+      id: "threshold",
+      title: "Threshold framing",
+      description: "Characters framed through doorways and windows — liminal spaces marking decisions.",
+      tags: ["composition", "motif"],
+      timestamps: [
+        { time: 180 },
+        { time: 1200, endTime: 1260 },
+        { time: 2890 },
+        { time: 4400, endTime: 4460 },
+      ],
+    },
+  ],
 }
