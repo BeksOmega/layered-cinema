@@ -45,15 +45,19 @@ export default function App() {
 
   useEffect(() => {
     if (!cinemaOn) {
+      console.log('[layered-cinema] App: cinema mode off, clearing film');
       setFilm(null);
       setSelectedArtifact(null);
       return;
     }
     const videoId = extractYoutubeVideoId(window.location.href);
+    console.log('[layered-cinema] App: cinema mode on, videoId=', videoId);
     if (!videoId) return;
     let cancelled = false;
     getFilmData(videoId).then((data) => {
-      if (!cancelled) setFilm(data);
+      if (cancelled) return;
+      console.log('[layered-cinema] App: film data result for', videoId, '->', data ? `"${data.title}" (${data.artifacts.length} artifacts)` : 'null');
+      setFilm(data);
     });
     return () => {
       cancelled = true;
