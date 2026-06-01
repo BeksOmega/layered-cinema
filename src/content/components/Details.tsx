@@ -18,6 +18,7 @@ export interface DetailsProps {
   tags?: string[];
   onTimestampClick?: (timestamp: TimestampItem) => void;
   onTagClick?: (tag: string) => void;
+  onClose?: () => void;
 }
 
 function GrainOverlay() {
@@ -74,6 +75,25 @@ function ChevronRight() {
   );
 }
 
+function XIcon() {
+  return (
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 12 12"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M1.5 1.5L10.5 10.5M10.5 1.5L1.5 10.5"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
 export default function Details({
   title,
   description,
@@ -82,6 +102,7 @@ export default function Details({
   tags = [],
   onTimestampClick,
   onTagClick,
+  onClose,
 }: DetailsProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -125,6 +146,23 @@ export default function Details({
           opacity: 0.6,
         }}
       />
+
+      {/* Close button */}
+      {onClose && (
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label="Close"
+          className={cn(
+            'absolute top-2.5 right-2.5 z-[60]',
+            'w-5 h-5 flex items-center justify-center rounded-[2px]',
+            'text-[#4a4438] hover:text-[#8a8070]',
+            'transition-colors duration-150',
+          )}
+        >
+          <XIcon />
+        </button>
+      )}
 
       {/* Media carousel */}
       {currentItem && (
@@ -276,34 +314,6 @@ export default function Details({
         </div>
 
         {timestamps.length > 0 && (
-<<<<<<< HEAD
-          <div
-            className="mt-4 pt-3.5"
-            style={{ borderTop: '1px solid #1c1a14' }}
-          >
-            <div className="space-y-0.5">
-              {timestamps.map((ts, i) => (
-                <Button
-                  key={i}
-                  variant="ghost"
-                  onClick={() => onTimestampClick?.(ts)}
-                  className={cn(
-                    'font-instrument-sans',
-                    'w-full justify-start gap-3 px-2 py-1 h-auto rounded-[2px]',
-                    'text-left group',
-                    'hover:bg-[rgba(214,16,69,0.07)] hover:text-inherit',
-                  )}
-                >
-                  <span className="font-mono text-brick-red-600 text-[11px] tabular-nums flex-none tracking-[0.04em]">
-                    {ts.time}
-                  </span>
-                  <span className="text-[#8a8070] group-hover:text-[#bdb5a2] text-[12px] transition-colors duration-150 truncate font-normal">
-                    {ts.label}
-                  </span>
-                </Button>
-              ))}
-            </div>
-=======
           <div className="mt-3.5 pt-3.5 flex flex-wrap gap-1.5" style={{ borderTop: '1px solid #1c1a14' }}>
             {timestamps.map((ts, i) => (
               <Button
@@ -322,7 +332,6 @@ export default function Details({
                 {ts.time}
               </Button>
             ))}
->>>>>>> 94a4a9f (Refine Timeline and Details components)
           </div>
         )}
 

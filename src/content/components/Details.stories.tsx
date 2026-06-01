@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import Details from './Details';
 
@@ -209,4 +210,95 @@ export const TagsOnly: Story = {
       'expressionism',
     ],
   },
+};
+
+export const Closable: Story = {
+  args: {
+    title: 'The Third Man',
+    description: DESCRIPTION,
+    onClose: () => {},
+  },
+};
+
+export const ClosableWithMedia: Story = {
+  args: {
+    title: 'Film Stills',
+    description: DESCRIPTION,
+    media: [
+      {
+        type: 'image',
+        url: 'https://picsum.photos/seed/cinema1/640/360',
+        alt: 'Vienna street scene',
+      },
+      {
+        type: 'image',
+        url: 'https://picsum.photos/seed/cinema2/640/360',
+        alt: 'Night pursuit sequence',
+      },
+    ],
+    onClose: () => {},
+  },
+};
+
+export const ClosableWithEverything: Story = {
+  args: {
+    title: 'The Third Man',
+    description: DESCRIPTION,
+    media: [
+      {
+        type: 'image',
+        url: 'https://picsum.photos/seed/cinema1/640/360',
+        alt: 'Vienna street scene',
+      },
+    ],
+    timestamps: [
+      { time: '0:42' },
+      { time: '4:15' },
+      { time: '8:03' },
+    ],
+    tags: ['film noir', 'post-war', 'orson welles', 'vienna'],
+    onClose: () => {},
+  },
+};
+
+function ClosableInteractiveDemo() {
+  const [visible, setVisible] = useState(true);
+
+  return (
+    <div style={{ minHeight: '100vh', background: '#0f0f0f', position: 'relative' }}>
+      {visible ? (
+        <Details
+          title="The Third Man"
+          description={DESCRIPTION}
+          media={[
+            {
+              type: 'image',
+              url: 'https://picsum.photos/seed/cinema1/640/360',
+              alt: 'Vienna street scene',
+            },
+          ]}
+          timestamps={[{ time: '0:42' }, { time: '4:15' }]}
+          tags={['film noir', 'orson welles']}
+          onClose={() => setVisible(false)}
+        />
+      ) : (
+        <div
+          style={{
+            position: 'fixed',
+            bottom: '1.5rem',
+            right: '1.5rem',
+            color: '#4a4438',
+            fontSize: '12px',
+            fontFamily: 'ui-monospace, monospace',
+          }}
+        >
+          closed — reload to reset
+        </div>
+      )}
+    </div>
+  );
+}
+
+export const ClosableInteractive: Story = {
+  render: () => <ClosableInteractiveDemo />,
 };
