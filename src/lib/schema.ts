@@ -57,6 +57,7 @@ export const FilmSchema = z.object({
         'Must be a YouTube link, e.g. https://youtu.be/ID or https://www.youtube.com/watch?v=ID',
     }),
   artifacts: z.array(ArtifactSchema).default([]),
+  defaultTimelineTags: z.array(kebab).default([]),
 });
 
 export type Video = z.infer<typeof VideoSchema>;

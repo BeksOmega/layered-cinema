@@ -4,6 +4,19 @@ import Details from './components/Details';
 import { getFilmData } from '@/lib/filmIndex';
 import type { Film, Artifact } from '@/lib/schema';
 
+function defaultArtifactsFor(film: Film): Artifact[] {
+  const seen = new Set<string>();
+  const result: Artifact[] = [];
+  for (const tag of film.defaultTimelineTags) {
+    const matches = film.artifacts.filter((a) => a.tags.includes(tag));
+    if (matches.length === 1 && !seen.has(matches[0].id)) {
+      seen.add(matches[0].id);
+      result.push(matches[0]);
+    }
+  }
+  return result;
+}
+
 function formatTime(seconds: number): string {
   const h = Math.floor(seconds / 3600);
   const m = Math.floor((seconds % 3600) / 60);
@@ -21,7 +34,7 @@ export default function Sidebar({ videoId }: Props) {
     () => document.documentElement.dataset.layeredCinema === 'on',
   );
   const [film, setFilm] = useState<Film | null>(null);
-  const [artifact, setArtifact] = useState<Artifact | null>(null);
+  const [artifacts, setArtifacts] = useState<Artifact[]>([]);
 
   useEffect(() => {
     const obs = new MutationObserver(() => {
@@ -37,14 +50,14 @@ export default function Sidebar({ videoId }: Props) {
   useEffect(() => {
     if (!cinemaOn) {
       setFilm(null);
-      setArtifact(null);
+      setArtifacts([]);
       return;
     }
     let cancelled = false;
     getFilmData(videoId).then((data) => {
       if (cancelled) return;
       setFilm(data);
-      setArtifact(data?.artifacts[0] ?? null);
+      setArtifacts(data ? defaultArtifactsFor(data) : []);
     });
     return () => {
       cancelled = true;
@@ -54,10 +67,13 @@ export default function Sidebar({ videoId }: Props) {
   useEffect(() => {
     const handler = (e: Event) => {
       const { artifactIndex } = (e as CustomEvent<{ artifactIndex: number }>).detail;
-      setArtifact((prev) => {
-        const next = film?.artifacts[artifactIndex] ?? null;
-        return next ?? prev;
-      });
+      const clicked = film?.artifacts[artifactIndex];
+      if (!clicked) return;
+      setArtifacts((prev) =>
+        prev.some((a) => a.id === clicked.id)
+          ? prev.filter((a) => a.id !== clicked.id)
+          : [...prev, clicked],
+      );
     };
     document.addEventListener('layered-cinema:artifact-select', handler);
     return () => document.removeEventListener('layered-cinema:artifact-select', handler);
@@ -76,16 +92,18 @@ export default function Sidebar({ videoId }: Props) {
   return (
     <div>
       <CinemaModeToggle videoId={videoId} />
-      {cinemaOn && artifact && (
-        <Details
-          inline
-          title={artifact.title}
-          description={artifact.description ?? ''}
-          timestamps={artifact.timestamps.map((ts) => ({ time: formatTime(ts.time) }))}
-          tags={artifact.tags}
-          onTimestampClick={handleTimestampClick}
-        />
-      )}
+      {cinemaOn &&
+        artifacts.map((artifact) => (
+          <Details
+            key={artifact.id}
+            inline
+            title={artifact.title}
+            description={artifact.description ?? ''}
+            timestamps={artifact.timestamps.map((ts) => ({ time: formatTime(ts.time) }))}
+            tags={artifact.tags}
+            onTimestampClick={handleTimestampClick}
+          />
+        ))}
     </div>
   );
 }
