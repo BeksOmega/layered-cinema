@@ -1,23 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Timeline, type TimelineEvent } from '@/components/Timeline/Timeline';
-import Details from './components/Details';
 import { getFilmData, extractYoutubeVideoId } from '@/lib/filmIndex';
-import type { Film, Artifact } from '@/lib/schema';
-
-function formatTime(seconds: number): string {
-  const h = Math.floor(seconds / 3600);
-  const m = Math.floor((seconds % 3600) / 60);
-  const s = Math.floor(seconds % 60);
-  if (h > 0) return `${h}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
-  return `${m}:${String(s).padStart(2, '0')}`;
-}
-
-function parseFormattedTime(formatted: string): number {
-  const parts = formatted.split(':').map(Number);
-  return parts.length === 3
-    ? parts[0] * 3600 + parts[1] * 60 + parts[2]
-    : parts[0] * 60 + parts[1];
-}
+import type { Film } from '@/lib/schema';
 
 interface ArtifactEvent extends TimelineEvent {
   artifactIndex: number;
@@ -30,7 +14,6 @@ export default function App() {
   const [film, setFilm] = useState<Film | null>(null);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
-  const [selectedArtifact, setSelectedArtifact] = useState<Artifact | null>(null);
   const [videoRect, setVideoRect] = useState<DOMRect | null>(null);
 
   useEffect(() => {
@@ -48,7 +31,6 @@ export default function App() {
     if (!cinemaOn) {
       console.log('[layered-cinema] App: cinema mode off, clearing film');
       setFilm(null);
-      setSelectedArtifact(null);
       return;
     }
     const videoId = extractYoutubeVideoId(window.location.href);
@@ -109,40 +91,28 @@ export default function App() {
   );
 
   function handleEventClick(_ev: TimelineEvent, index: number) {
-    const artifact = film!.artifacts[events[index].artifactIndex];
-    setSelectedArtifact((prev) => (prev === artifact ? null : artifact));
+    const artifactIndex = events[index].artifactIndex;
+    document.dispatchEvent(
+      new CustomEvent('layered-cinema:artifact-select', { detail: { artifactIndex } }),
+    );
   }
 
   return (
-    <>
-      <div
-        className="fixed z-[9999999] px-6 pt-3 pb-4"
-        style={
-          videoRect
-            ? { left: videoRect.left, top: videoRect.bottom, width: videoRect.width }
-            : { left: 0, right: 0, top: 0 }
-        }
-      >
-        <Timeline
-          duration={duration}
-          currentTime={currentTime}
-          events={events}
-          onChange={handleSeek}
-          onEventClick={handleEventClick}
-        />
-      </div>
-
-      {selectedArtifact && (
-        <Details
-          title={selectedArtifact.title}
-          description={selectedArtifact.description ?? ''}
-          timestamps={selectedArtifact.timestamps.map((ts) => ({
-            time: formatTime(ts.time),
-          }))}
-          tags={selectedArtifact.tags}
-          onTimestampClick={(ts) => handleSeek(parseFormattedTime(ts.time))}
-        />
-      )}
-    </>
+    <div
+      className="fixed z-[9999999] px-6 pt-3 pb-4"
+      style={
+        videoRect
+          ? { left: videoRect.left, top: videoRect.bottom, width: videoRect.width }
+          : { left: 0, right: 0, top: 0 }
+      }
+    >
+      <Timeline
+        duration={duration}
+        currentTime={currentTime}
+        events={events}
+        onChange={handleSeek}
+        onEventClick={handleEventClick}
+      />
+    </div>
   );
 }
