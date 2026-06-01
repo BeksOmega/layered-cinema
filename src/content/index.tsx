@@ -55,18 +55,30 @@ function teardown() {
 
 async function updateForCurrentVideo() {
   const videoId = extractYoutubeVideoId(window.location.href);
+  console.log('[layered-cinema] updateForCurrentVideo: url=', window.location.href, 'videoId=', videoId, 'activeVideoId=', activeVideoId);
 
   // Navigate away from a watch page or to a different video — clean up first.
   if (videoId !== activeVideoId) teardown();
-  if (!videoId) return;
+  if (!videoId) {
+    console.log('[layered-cinema] updateForCurrentVideo: no videoId, skipping');
+    return;
+  }
 
   const hasData = await hasFilmData(videoId);
   // Guard: user may have navigated while we were fetching.
-  if (videoId !== extractYoutubeVideoId(window.location.href)) return;
-  if (!hasData) return;
+  if (videoId !== extractYoutubeVideoId(window.location.href)) {
+    console.log('[layered-cinema] updateForCurrentVideo: navigated away during fetch, aborting');
+    return;
+  }
+  if (!hasData) {
+    console.log('[layered-cinema] updateForCurrentVideo: no film data for', videoId);
+    return;
+  }
 
+  console.log('[layered-cinema] updateForCurrentVideo: activating cinema UI for', videoId);
   activeVideoId = videoId;
   const savedState = localStorage.getItem(`layered-cinema:${videoId}`);
+  console.log('[layered-cinema] updateForCurrentVideo: savedState=', savedState);
   document.documentElement.dataset.layeredCinema = savedState === 'on' ? 'on' : 'off';
 
   const cinemaStyle = document.createElement('style');
@@ -100,4 +112,5 @@ if (import.meta.hot) {
       if (existing) existing.textContent = newModule.default;
     }
   });
+
 }
