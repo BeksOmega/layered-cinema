@@ -1,7 +1,7 @@
 import { createElement } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
 import App from './App';
-import CinemaModeToggle from './CinemaModeToggle';
+import Sidebar from './Sidebar';
 import cssText from './index.css?inline';
 import './index.css'; // regular import so Vite's HMR pipeline tracks this CSS file
 import { extractYoutubeVideoId, hasFilmData } from '@/lib/filmIndex';
@@ -43,7 +43,7 @@ function injectSidebarToggle() {
   const sidebarMount = document.createElement('div');
   sidebarShadow.appendChild(sidebarMount);
   secondary.insertBefore(sidebarContainer, secondary.firstChild);
-  createRoot(sidebarMount).render(<CinemaModeToggle videoId={activeVideoId as string} />);
+  createRoot(sidebarMount).render(<Sidebar videoId={activeVideoId as string} />);
 }
 
 function teardown() {
