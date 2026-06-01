@@ -1,3 +1,8 @@
+/* Lock viewport scroll in cinema mode */
+[data-layered-cinema="on"] body {
+  overflow: clip !important;
+}
+
 /* Hide top navigation bar */
 [data-layered-cinema="on"] #masthead-container {
   display: none !important;
