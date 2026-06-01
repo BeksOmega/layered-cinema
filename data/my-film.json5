@@ -2,6 +2,10 @@
   title: "My Film",
   youtubeLink: "https://youtu.be/dQw4w9WgXcQ",
 
+  // Tags whose artifacts are shown on the timeline by default.
+  // If exactly one artifact has a tag, that artifact is shown in the sidebar on load.
+  defaultTimelineTags: ["rainbow"],
+
   artifacts: [
     {
       id: "rainbow-motif",

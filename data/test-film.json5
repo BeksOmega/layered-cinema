@@ -2,6 +2,10 @@
   title: "Test Film",
   youtubeLink: "https://www.youtube.com/watch?v=sIFGC8L_MX0",
 
+  // Tags whose artifacts are shown on the timeline by default.
+  // If exactly one artifact has a tag, that artifact is shown in the sidebar on load.
+  defaultTimelineTags: ["danger", "duality"],
+
   artifacts: [
     {
       id: "color-red",
