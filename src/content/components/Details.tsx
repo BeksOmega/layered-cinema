@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import YouTubeEmbed from './YouTubeEmbed';
 
 export type MediaItem =
   | { type: 'image'; url: string; alt?: string }
-  | { type: 'video'; url: string; title?: string };
+  | { type: 'youtube'; videoId: string; start?: number; end?: number; title?: string };
 
 export interface TimestampItem {
   time: string;
@@ -140,12 +141,12 @@ export default function Details({
               className="w-full h-full object-contain"
             />
           ) : (
-            <video
+            <YouTubeEmbed
               key={currentIndex}
-              src={currentItem.url}
-              controls
-              className="w-full h-full object-contain"
-              style={{ background: '#000' }}
+              videoId={currentItem.videoId}
+              start={currentItem.start}
+              end={currentItem.end}
+              title={currentItem.title}
             />
           )}
 
