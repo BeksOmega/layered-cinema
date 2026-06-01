@@ -2,12 +2,23 @@ import { useState } from 'react';
 
 import { Switch } from '@/components/ui/switch';
 
-export default function CinemaModeToggle() {
+const STORAGE_KEY_PREFIX = 'layered-cinema:';
+
+interface Props {
+  videoId: string;
+}
+
+export default function CinemaModeToggle({ videoId }: Props) {
   const [cinemaOn, setCinemaOn] = useState(
-    document.documentElement.dataset.layeredCinema === 'on',
+    localStorage.getItem(STORAGE_KEY_PREFIX + videoId) === 'on',
   );
 
   function handleToggle(checked: boolean) {
+    if (checked) {
+      localStorage.setItem(STORAGE_KEY_PREFIX + videoId, 'on');
+    } else {
+      localStorage.removeItem(STORAGE_KEY_PREFIX + videoId);
+    }
     document.documentElement.dataset.layeredCinema = checked ? 'on' : 'off';
     setCinemaOn(checked);
   }
