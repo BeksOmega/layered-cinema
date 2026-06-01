@@ -38,12 +38,12 @@ function Controlled(props: TimelineProps) {
 export const Default: Story = {
   render: (args) => <Controlled {...args} />,
   args: {
-    duration: 120,
-    currentTime: 38,
+    duration: 5580,
+    currentTime: 200,
     events: [
-      { start: 8, end: 22, label: 'Opening' },
-      { start: 45, end: 68, label: 'Climax' },
-      { start: 90, end: 108, label: 'Ending' },
+      { start: 42,  end: 255, label: 'The Harry Lime Theme' },
+      { start: 255, end: 900, label: 'Dutch angle compositions' },
+      { start: 483, end: 750, label: 'Shadow as moral indicator' },
     ] satisfies TimelineEvent[],
   },
 }
@@ -51,20 +51,19 @@ export const Default: Story = {
 export const Dense: Story = {
   render: (args) => <Controlled {...args} />,
   args: {
-    duration: 180,
-    currentTime: 72,
+    duration: 5580,
+    currentTime: 1800,
     events: [
-      { start: 4, end: 14, label: 'Scene 1' },
-      { start: 17, end: 28, label: 'Scene 2' },
-      { start: 30, end: 42, label: 'Scene 3' },
-      { start: 44, end: 54, label: 'Scene 4' },
-      { start: 57, end: 68, label: 'Scene 5' },
-      { start: 70, end: 80, label: 'Scene 6' },
-      { start: 83, end: 98, label: 'Scene 7' },
-      { start: 100, end: 112, label: 'Scene 8' },
-      { start: 118, end: 138, label: 'Finale' },
-      { start: 148, end: 162, label: 'Scene 10' },
-      { start: 166, end: 175, label: 'Credits' },
+      { start: 42,   end: 420,  label: 'The Harry Lime Theme' },
+      { start: 255,  end: 900,  label: 'Dutch angle compositions' },
+      { start: 483,  end: 750,  label: 'Shadow as moral indicator' },
+      { start: 717,  end: 1200, label: "Holly's moral compromise" },
+      { start: 980,  end: 1400, label: 'Wet cobblestone motif' },
+      { start: 1200, end: 1800, label: "Lime's cat" },
+      { start: 1550, end: 2100, label: 'Zither leitmotif' },
+      { start: 1900, end: 2400, label: 'The Ferris wheel' },
+      { start: 2200, end: 2800, label: 'Post-war moral ambiguity' },
+      { start: 2600, end: 3100, label: 'The sewer geography' },
     ] satisfies TimelineEvent[],
   },
 }

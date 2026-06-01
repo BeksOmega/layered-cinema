@@ -166,10 +166,10 @@ export const WithTimestampsAndTags: Story = {
       },
     ],
     timestamps: [
-      { time: '0:42', label: 'Harry Lime first appears' },
-      { time: '4:15', label: 'The cuckoo clock speech' },
-      { time: '8:03', label: 'Ferris wheel confrontation' },
-      { time: '11:57', label: 'Sewers chase sequence' },
+      { time: '0:42' },
+      { time: '4:15' },
+      { time: '8:03' },
+      { time: '11:57' },
     ],
     tags: [
       'film noir',
@@ -187,9 +187,9 @@ export const TimestampsOnly: Story = {
     title: 'Related Moments',
     description: DESCRIPTION,
     timestamps: [
-      { time: '0:42', label: 'Harry Lime first appears' },
-      { time: '4:15', label: 'The cuckoo clock speech' },
-      { time: '8:03', label: 'Ferris wheel confrontation' },
+      { time: '0:42' },
+      { time: '4:15' },
+      { time: '8:03' },
     ],
   },
 };
