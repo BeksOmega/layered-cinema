@@ -115,7 +115,6 @@ export default function App() {
           description={selectedArtifact.description ?? ''}
           timestamps={selectedArtifact.timestamps.map((ts) => ({
             time: formatTime(ts.time),
-            label: ts.label ?? formatTime(ts.time),
           }))}
           tags={selectedArtifact.tags}
           onTimestampClick={(ts) => handleSeek(parseFormattedTime(ts.time))}

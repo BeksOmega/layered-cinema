@@ -8,7 +8,6 @@ export type MediaItem =
 
 export interface TimestampItem {
   time: string;
-  label?: string;
 }
 
 export interface DetailsProps {
@@ -278,31 +277,26 @@ export default function Details({
 
         {timestamps.length > 0 && (
           <div
-            className="mt-4 pt-3.5"
+            className="mt-3.5 pt-3.5 flex flex-wrap gap-1.5"
             style={{ borderTop: '1px solid #1c1a14' }}
           >
-            <div className="space-y-0.5">
-              {timestamps.map((ts, i) => (
-                <Button
-                  key={i}
-                  variant="ghost"
-                  onClick={() => onTimestampClick?.(ts)}
-                  className={cn(
-                    'font-instrument-sans',
-                    'w-full justify-start gap-3 px-2 py-1 h-auto rounded-[2px]',
-                    'text-left group',
-                    'hover:bg-[rgba(214,16,69,0.07)] hover:text-inherit',
-                  )}
-                >
-                  <span className="font-mono text-brick-red-600 text-[11px] tabular-nums flex-none tracking-[0.04em]">
-                    {ts.time}
-                  </span>
-                  <span className="text-[#8a8070] group-hover:text-[#bdb5a2] text-[12px] transition-colors duration-150 truncate font-normal">
-                    {ts.label}
-                  </span>
-                </Button>
-              ))}
-            </div>
+            {timestamps.map((ts, i) => (
+              <Button
+                key={i}
+                variant="outline"
+                onClick={() => onTimestampClick?.(ts)}
+                className={cn(
+                  'h-auto px-2.5 py-0.5 rounded-[2px]',
+                  'text-[10.5px] font-normal tabular-nums',
+                  'text-brick-red-600 border-[#2a2418] bg-transparent',
+                  'hover:text-brick-red-400 hover:border-brick-red-900 hover:bg-[rgba(214,16,69,0.06)]',
+                  'transition-all duration-150',
+                )}
+                style={{ fontFamily: 'ui-monospace, monospace', letterSpacing: '0.04em' }}
+              >
+                {ts.time}
+              </Button>
+            ))}
           </div>
         )}
 
