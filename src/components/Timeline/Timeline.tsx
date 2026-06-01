@@ -1,4 +1,4 @@
-import { useRef, useCallback, useEffect, useState, Fragment } from 'react'
+import { useRef, useCallback, useEffect, useLayoutEffect, useState, Fragment } from 'react'
 import { cn } from '@/lib/utils'
 
 export interface TimelineEvent {
@@ -57,6 +57,7 @@ export function Timeline({
   className,
 }: TimelineProps) {
   const ref = useRef<HTMLDivElement>(null)
+  const tooltipRef = useRef<HTMLDivElement>(null)
   const hideTimer = useRef<number | undefined>(undefined)
   const [expanded, setExpanded] = useState(false)
   const [dragging, setDragging] = useState(false)
@@ -79,6 +80,16 @@ export function Timeline({
   }, [])
 
   useEffect(() => () => clearTimeout(hideTimer.current), [])
+
+  useLayoutEffect(() => {
+    const el = tooltipRef.current
+    if (!el) return
+    const parentRect = (el.offsetParent as HTMLElement).getBoundingClientRect()
+    const leftOverflow = parentRect.left - el.getBoundingClientRect().left
+    el.style.transform = leftOverflow > 0
+      ? `translateX(calc(-50% + ${leftOverflow}px))`
+      : 'translateX(-50%)'
+  }, [hovered])
 
   const timeAt = useCallback(
     (clientX: number): number => {
@@ -167,8 +178,9 @@ export function Timeline({
         <div className="relative flex-1">
           {hovered !== null && events[hovered]?.label && (
             <div
-              className="absolute bottom-full z-10 mb-0.5 -translate-x-1/2 cursor-pointer whitespace-nowrap rounded border border-brick-red-900 bg-zinc-950/95 px-2 py-0.5 font-[Cinzel] text-[10px] tracking-widest text-brick-red-400 hover:border-brick-red-700 hover:text-brick-red-300"
-              style={{ left: `${((events[hovered].start + events[hovered].end) / 2 / duration) * 100}%` }}
+              ref={tooltipRef}
+              className="absolute bottom-full z-10 mb-0.5 cursor-pointer whitespace-nowrap rounded border border-brick-red-900 bg-zinc-950/95 px-2 py-0.5 font-[Cinzel] text-[10px] tracking-widest text-brick-red-400 hover:border-brick-red-700 hover:text-brick-red-300"
+              style={{ left: `${((events[hovered].start + events[hovered].end) / 2 / duration) * 100}%`, transform: 'translateX(-50%)' }}
               onMouseEnter={() => showTooltip(hovered)}
               onMouseLeave={hideTooltip}
               onMouseDown={(e) => e.stopPropagation()}
